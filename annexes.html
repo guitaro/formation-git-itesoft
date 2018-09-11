@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Formation GIT - Excercice 1</title>
+    <title>Annexes - Formation GIT</title>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <!-- CSS -->
     <link rel="stylesheet" href="scripts/css/bootstrap.min.css"/>
@@ -12,7 +12,7 @@
         <div class="inner">
             <img class="navbar-brand w-25" src="images/itesoft_logo_white.png"/>
             <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link" href="#">Accueil</a>
+                <a class="nav-link" href="index.html">Accueil</a>
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Excercices
@@ -31,36 +31,89 @@
     </header>
 
     <main role="main" class="inner cover">
-        <img class="rounded d-block w-25" src="images/Git-Icon-1788C.png" alt="..."/>
-        <h1 class="cover-heading">Formation GIT</h1>
-        <p class="lead">
-            <p class="lead alert alert-primary font-italic">En bleu clair italic : le contexte</p>
-            <p class="lead alert alert-secondary font-italic"><code>En encadré gris : du code à copier/coller ou bien des extraits de console</code></p>
-            Certaines étapes ne sont pas indispensables. Elles sont marquées <span class="badge badge-primary">bonus</span> ou <span class="badge badge-info">conseil</span>
-        </p>
-        <p class="lead">
-            <a href="exo1.html" class="btn btn-lg btn-primary">Commencer les exercices !</a>
-        </p>
+        <h1 class="cover-heading">Trucs et astuces</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#conf">Configuration</a></li>
+                <li class="breadcrumb-item"><a href="#custo">Personnalisation</a></li>
+            </ol>
+        </nav>
+        <div class="card">
+            <h5 class="card-header"><a name="conf">Configuration</a></h5>
+            <div class="card-body">
+                <h4 class="card-title">Initier ou changer son email et nom</h4>
+                <pre class="card-text">
+                    <span>$ git config --global user.email "moi@itesoft.com"</span>
+                    <span>$ git config --global user.name "ABC" &lt;-- trigramme</span>
+                </pre>
+
+                <h4 class="card-title">Ignorer des fichiers</h4>
+                <p>Il apparaît souvent qu’un type de fichiers présent dans la copie de travail ne doit pas être ajouté automatiquement ou même ne doit pas apparaître comme fichier potentiel pour le suivi de version. Ce sont par exemple des fichiers générés automatiquement tels que les fichiers de journaux ou de sauvegardes produits par l’outil que vous utilisez. Dans un tel cas, on peut énumérer les patterns de noms de fichiers à ignorer dans un fichier .gitignore.
+                Renseigner un fichier .gitignore avant de commencer à travailler est généralement une bonne idée qui évitera de valider par inadvertance des fichiers qui ne doivent pas apparaître dans le dépôt Git.
+                    Les règles de construction des patrons à placer dans le fichier .gitignore sont les suivantes :</p>
+                <ul>
+                    <li>les lignes vides ou commençant par # sont ignorées ;</li>
+                    <li>les patrons standards de fichiers sont utilisables ;</li>
+                    <li>si le patron se termine par une barre oblique (/), il indique un répertoire ;</li>
+                    <li>un patron commençant par un point d’exclamation (!) indique des fichiers à inclure malgré les autres règles.</li>
+                </ul>
+                Voici ci-dessous un exemple de fichier .gitignore :
+                <pre class="card-text">
+                    <span># pas de fichier .class</span>
+                    <span>*.class</span>
+                    <span></span>
+                    <span># mais suivre lib.a malgré la règle précédente</span>
+                    <span>!Main.class</span>
+                    <span></span>
+                    <span># ignorer uniquement le fichier README.md à la racine du projet</span>
+                    <span>/README.md</span>
+                    <span></span>
+                    <span># ignorer tous les fichiers dans le répertoire target</span>
+                    <span>target/</span>
+                    <span></span>
+                    <span># ignorer doc/fr.txt et doc/en.txt, mais pas doc/server/fr.txt</span>
+                    <span>doc/*.txt</span>
+                    <span></span>
+                    <span># ignorer tous les fichiers .txt sous le répertoire test/</span>
+                    <span>test/**/*.txt</span>
+                </pre>
+
+                Pour ignorer des fichiers dans tous vos projets GIT, vous pouvez définir un .gitignore global à votre environnement :
+                <pre class="card-text">
+                    <span>$ git config --global core.excludesfile C:/.gitignore_global</span>
+                </pre>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header"><a name="custo">Personnalisation</a></h5>
+            <div class="card-body">
+                <h4 class="card-title">Créer des alias</h4>
+                Avec git on peut créer des alias à des commandes personnalisée. Pratique pour gagner quelques caractère lors de la saisie de vos commandes. Par exemple, au lieu d'écrire
+                <pre class="card-text">
+                    <span>$ git status</span>
+                </pre>
+                on peut écrire
+                <pre class="card-text">
+                    <span>$ git st</span>
+                </pre>
+                Voici comment configurer les alias :
+                <pre class="card-text">
+                    <span>$ git config --global alias.st status</span>
+                    <span>$ git config --global alias.co checkout</span>
+                    <span>$ git config --global alias.br branch</span>
+                    <span>$ git config --global alias.ci commit</span>
+                    <span>$ git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"</span>
+                </pre>
+            </div>
+        </div>
     </main>
 
-    <footer class="mastfoot mt-auto">
+    <footer class="mt-auto">
         <div class="inner">
-            <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a
-                    href="https://twitter.com/mdo">@mdo</a>.</p>
+            <p>Created by <a href="https://github.com/guitaro" target="_blank">Léventé NAGY (LNA)</a>.</p>
         </div>
     </footer>
 </div>
-<!--<div class="container-fluid">-->
-<!--<div class="jumbotron align-self-center" style="width: 700px">-->
-<!--<h1 class="display-4">Formation GIT</h1>-->
-<!--<p class="lead">-->
-<!--Pratiquer GIT au niveau débutant et intermédiaire.-->
-<!--</p>-->
-<!--<hr class="my-4">-->
-<!--<p>-->
-<!--</p>-->
-<!--</div>-->
-<!--</div>-->
 
 <!-- Javascripts -->
 <script src="scripts/js/jquery-3.3.1.min.js"></script>
