@@ -4,7 +4,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <!-- CSS -->
     <link rel="stylesheet" href="scripts/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="scripts/css/styles.css"/>
 </head>
 <body>
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -36,17 +36,21 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#conf">Configuration</a></li>
                 <li class="breadcrumb-item"><a href="#custo">Personnalisation</a></li>
+                <li class="breadcrumb-item"><a href="#tips">Astuces</a></li>
             </ol>
         </nav>
         <div class="card">
             <h5 class="card-header"><a name="conf">Configuration</a></h5>
             <div class="card-body">
+                <h4 class="card-title">Afficher sa configuration</h4>
+                <pre class="card-text">
+                    <span>$ git config --l</span>
+                </pre>
                 <h4 class="card-title">Initier ou changer son email et nom</h4>
                 <pre class="card-text">
                     <span>$ git config --global user.email "moi@itesoft.com"</span>
                     <span>$ git config --global user.name "ABC" &lt;-- trigramme</span>
                 </pre>
-
                 <h4 class="card-title">Ignorer des fichiers</h4>
                 <p>Il apparaît souvent qu’un type de fichiers présent dans la copie de travail ne doit pas être ajouté automatiquement ou même ne doit pas apparaître comme fichier potentiel pour le suivi de version. Ce sont par exemple des fichiers générés automatiquement tels que les fichiers de journaux ou de sauvegardes produits par l’outil que vous utilisez. Dans un tel cas, on peut énumérer les patterns de noms de fichiers à ignorer dans un fichier .gitignore.
                 Renseigner un fichier .gitignore avant de commencer à travailler est généralement une bonne idée qui évitera de valider par inadvertance des fichiers qui ne doivent pas apparaître dans le dépôt Git.
@@ -104,6 +108,53 @@
                     <span>$ git config --global alias.ci commit</span>
                     <span>$ git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"</span>
                 </pre>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header"><a name="tips">Astuces</a></h5>
+            <div class="card-body">
+                <h4 class="card-title">Rebaser sa branche courante sur une autre</h4>
+                <pre class="card-text">
+                    <span>$ git rebase &lt;from_branch_name&gt;</span>
+                </pre>
+                <h4 class="card-title">Synchroniser ses sources avec le serveur en écrasant ses modification locales</h4>
+                <pre class="card-text">
+                    <span>$ git fetch origin && git reset --hard origin/master && git clean -f -d</span>
+                </pre>
+                <h4 class="card-title">Lister tous les fichiers impactés depuis un commit</h4>
+                <pre class="card-text">
+                    <span>$ git ls-tree --name-only -r &lt;commit-hash&gt;</span>
+                </pre>
+                <h4 class="card-title">Lister tous les fichiers en conflit</h4>
+                <pre class="card-text">
+                    <span>$ git diff --name-only --diff-filter=U</span>
+                </pre>
+                <h4 class="card-title">Passer rapidement à la branche précédentement "checkouté"</h4>
+                <pre class="card-text">
+                    <span>$ git checkout -</span>
+                </pre>
+                <h4 class="card-title">Compléter le dernier commit</h4>
+                <pre class="card-text">
+                    <span>$ git commit --amend</span>
+                </pre>
+                <h4 class="card-title">Lister les branches locales</h4>
+                <pre class="card-text">
+                    <span>$ git branch</span>
+                </pre>
+                <h4 class="card-title">Lister les branches distantes</h4>
+                <pre class="card-text">
+                    <span>$ git branch -r</span>
+                </pre>
+                <h4 class="card-title">Lister les branches locales et distantes</h4>
+                <pre class="card-text">
+                    <span>$ git branch -a</span>
+                </pre>
+                <h4 class="card-title">Afficher l'arbre des versions</h4>
+                <pre class="card-text">
+                    <span>$ git log --pretty=oneline --graph --decorate --all</span>
+                </pre>
+                <br/>
+                <p class="text-right">Et plein d'autres astuces ici : <a href="https://github.com/git-tips/tips/blob/master/README.md" target="_blank">git-tips</a>.</p>
             </div>
         </div>
     </main>

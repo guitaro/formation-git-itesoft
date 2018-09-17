@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exercice 2 - Formation GIT</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="scripts/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="scripts/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="scripts/css/styles.css"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand">
+                        <img class="w-20" src="images/itesoft_logo_white.png"/>
+                    </span>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a class="nav-link" href="index.html">Accueil</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Excercices <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="exo1.html">Excerice 1</a></li>
+                            <li><a href="exo2.html">Excerice 2</a></li>
+                            <li><a href="exo3.html">Excerice 3</a></li>
+                            <li><a href="exo4.html">Excerice 4</a></li>
+                            <li><a href="exo5.html">Excerice 5</a></li>
+                            <li><a href="exo6.html">Excerice 6</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link" style="margin-left: 1rem" href="annexes.html">Annexes</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 class="exercice-title">git worktree <small><a href="https://git-scm.com/docs/git-worktree" target="_blank">Documentation</a></small></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-info text-italic">
+                <b>Mardi matin :</b><br/>
+                On a de nouveau une correction à réaliser en parallèle de la réalisation d’une nouvelle fonctionnalité.<br/>
+                Mais cette fois-ci, on veut être plus productif !!
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <ol>
+                <li>
+                    Positionnez-vous sur "master" proprement :
+                    <pre>
+                        <span>git reset --hard</span>
+                        <span>git clean -fd</span>
+                        <span>git checkout master</span>
+                    </pre>
+                </li>
+                <li>
+                    Créez un worktree nommé "jeTestDoncJeSuis-hol-bugfix" (Ici, un nouveau "répertoire" va être créé ; positionnez-le à côté de l’actuel : "../jeTestDoncJeSuis-hol-bugfix")
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r1" aria-expanded="false" aria-controls="r1">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r1">
+                        <pre class="panel-response">
+                            <span>git worktree add ../jeTestDoncJeSuis-hol-bugfix</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    <p>Consultez la liste des worktree ; voici le résultat que vous devez avoir :</p>
+                    <p>
+                        ../jeTestDoncJeSuis-hol <span class="label label-info">⇒ main worktree</span><br/>
+                        ../jeTestDoncJeSuis-hol-bugfix <span class="label label-info">⇒ linked worktree</span>
+                    </p>
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r2" aria-expanded="false" aria-controls="r2">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r2">
+                        <pre class="panel-response">
+                            <span>git worktree list</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    <p>Comparez l’espace occupé par ces 2 répertoires</p>
+                    <p>
+                        ../jeTestDoncJeSuis-hol <span class="label label-primary">⇒ 46 Mo</span><br/>
+                        ../jeTestDoncJeSuis-hol-bugfix <span class="label label-primary">⇒ 3,2 Mo</span>
+                    </p>
+                </li>
+                <li>
+                    Dans votre IDE : Importez le worktree "nouveau worktree" (jeTestDoncJeSuis-hol-bugfix)
+                </li>
+                <li>
+                    Réalisez la correction (décommentez le code dans <mark>Ecran#clickAleatoire()</mark>) dans le worktree jeTestDoncJeSuis-hol-bugfix
+                </li>
+                <li>
+                    Vous pouvez ouvrir 2 terminaux de commande (un worktree différent sur chaque fenêtre) et lancer les compilations / tests sur chaque worktree en même temps pour bien vérifier que les deux worktrees sont indépendants
+                </li>
+                <li>
+                    Commitez la correction sur le worktree "jeTestDoncJeSuis-hol-bugfix"
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r3" aria-expanded="false" aria-controls="r3">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r3">
+                        <pre class="panel-response">
+                            <span>git commit -a -m "modification de la gestion du caractère aléatoire du clic"</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    Depuis le main worktree (jeTestDoncJeSuis-hol) :
+                    <ul>
+                        <li>
+                            Est-ce que le commit est visible ? (git show par exemple)
+                        </li>
+                        <li>
+                            Est-ce qu’on peut faire un cherry-pick dessus ?
+                        </li>
+                    </ul>
+                    <p>
+                        <span class="label label-info">Il faut changer de répertoire pour changer de worktree.</span>
+                    </p>
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r4" aria-expanded="false" aria-controls="r4">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r4">
+                                <pre class="panel-response">
+                                    <span>Oui le commit est visible et Cherry-pick possible.</span>
+                                </pre>
+                    </div>
+                </li>
+                <li>
+            10 (Bonus) Lancez une commande sur les différents worktree en même temps à partir du même terminal (git bash sous windows) ?
+
+            Sous windows : git worktree list --porcelain | awk '/^worktree/ {print "/" $2 "/pom.xml"}' | xargs -I '{}' mvn clean install -f '{}'
+                </li>
+                <li>
+            11 Le travail est terminé, supprimez le worktree "jeTestDoncJeSuis-hol-bugfix"
+
+            Se placer dans le répertoire “jeTestDoncJeSuis-hol” et lancer les commandes suivantes.
+
+            rm -rf ../jeTestDoncJeSuis-hol-bugfix && git worktree prune
+
+            ou “rm -rf ../jeTestDoncJeSuis-hol-bugfix” puis “git worktree prune”
+
+            git worktree remove (A partir de la version 2.17)
+
+            https://stackoverflow.com/questions/44109234/how-to-delete-a-git-working-tree-branch-when-its-working-directory-has-been-remo/49331132#49331132
+                </li>
+                <li>
+            12 Consultez la liste des worktree pour vérifier que le worktree est bien supprimé
+
+            git worktree list
+                </li>
+                <li>
+            13 Positionnez vous sur le worktree principal (../jeTestDoncJeSuis-hol) ; est-ce que vous arrivez à retrouver la branche “jeTestDoncJeSuis-hol-bugfix” associé au worktree supprimé à l’étape 2.11 ?
+
+            Oui, elle est bien toujours présente malgré la suppression du worktree.
+
+            Complément d’info : on peut créer un worktree à partir d’une branche existante
+                </li>
+
+            </ol>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center">
+                <a href="exo3.html" class="btn btn-lg btn-primary">&gt;&gt; Exercice suivant</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer">
+    &copy; ITESOFT 2018 - Created by <a href="https://github.com/guitaro" target="_blank">Léventé NAGY (LNA)</a>.
+</footer>
+
+<!-- Javascripts -->
+<script src="scripts/js/jquery-3.3.1.min.js"></script>
+<script src="scripts/js/bootstrap.min.js"></script>
+</body>
+</html>
+

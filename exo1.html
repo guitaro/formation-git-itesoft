@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exercice 1 - Formation GIT</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="scripts/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="scripts/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="scripts/css/styles.css"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand">
+                        <img class="w-20" src="images/itesoft_logo_white.png"/>
+                    </span>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a class="nav-link" href="index.html">Accueil</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Excercices <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="exo1.html">Excerice 1</a></li>
+                            <li><a href="exo2.html">Excerice 2</a></li>
+                            <li><a href="exo3.html">Excerice 3</a></li>
+                            <li><a href="exo4.html">Excerice 4</a></li>
+                            <li><a href="exo5.html">Excerice 5</a></li>
+                            <li><a href="exo6.html">Excerice 6</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link" style="margin-left: 1rem" href="annexes.html">Annexes</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 class="exercice-title">git stash <small><a href="https://git-scm.com/docs/git-stash" target="_blank">Documentation</a></small></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-info text-italic">
+                <b>Lundi matin 7h30  (Oui oui, chez Itesoft on commence tôt !)</b>
+
+                Autour d’un café / croissant, le business analyst arrive et demande une nouvelle fonctionnalité de clic partout sur tous les champs cliquables d’un écran. Cette fonctionnalité doit-être implémentée d’ici 10 min, GO!!
+                <br/><br/>
+                Cela implique :
+                <ul>
+                    <li>Nouvelle API <i>Ecran#clicAleatoire()</i></li>
+                    <li>Nouvel utilitaire : UtilitaireDeClicPartout</li>
+                    <li>Et création de la classe de TU associé</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <ol>
+                <li>
+                    Récupérez le dépôt suivant via une fenêtre de commande : https://github.com/guitaro/jeTestDoncJeSuis-hol (Ou via la clé USB).
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r1" aria-expanded="false" aria-controls="r1">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r1">
+                        <pre class="panel-response">
+                            <span>git clone https://github.com/guitaro/jeTestDoncJeSuis-hol</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    Vérifiez que ça compile avec maven
+                    <pre>
+                        <span>mvn clean install</span>
+                    </pre>
+                </li>
+                <li>
+                    Ouvrir IntelliJ (ou l’IDE de votre choix) :
+                    <ul>
+                        <li>Importez le projet</li>
+                        <li>Lancez le test <mark>UtilitaireDeClicAleatoireTest</mark> et vérifier qu’il passe</li>
+                    </ul>
+                </li>
+                <li>
+                    Ajoutez une nouvelle fonctionnalité : "<b>clic partout</b>"
+                    <ul>
+                        <li>
+                            Proposition d’ajout dans la classe <mark>js.jetestdoncjesuis#Ecran</mark>
+                            <pre>
+                                <span>public void clicPartout() {</span>
+                                <span>   for (Bouton bouton : boutons) {</span>
+                                <span>     bouton.clic();</span>
+                                <span>   }</span>
+                                <span>}</span>
+                            </pre>
+                        </li>
+                        <li>
+                            Proposition de classe à ajouter : <mark>js.jetestdoncjesuis#UtilitaireDeClicPartout</mark>
+                            <pre>
+                                <span>package js.jetestdoncjesuis;</span>
+                                <span></span>
+                                <span>import java.util.Collection;</span>
+                                <span></span>
+                                <span>public class UtilitaireDeClicPartout {</span>
+                                <span></span>
+                                <span>  public void clicsPartout(Collection<Ecran> ecrans) {</span>
+                                <span>    System.out.println("\n\nDémarrage des clics partout :");</span>
+                                <span>    for (Ecran ecran : ecrans) {</span>
+                                <span>      ecran.clicPartout();</span>
+                                <span>    }</span>
+                                <span>    System.out.println("Fin des clics partout\n\n");</span>
+                                <span>  }</span>
+                                <span>}</span>
+                            </pre>
+                        </li>
+                        <li>
+                            Proposition de classe de test associé :  <mark>js.jetestdoncjesuis#UtilitaireDeClicPartoutTest</mark>
+                            <pre>
+                                <span>package js.jetestdoncjesuis;</span>
+                                <span></span>
+                                <span>import static org.junit.Assert.fail;</span>
+                                <span>import java.util.Collection;</span>
+                                <span>import org.junit.*;</span>
+                                <span></span>
+                                <span>public class UtilitaireDeClicPartoutTest {</span>
+                                <span></span>
+                                <span>  private Collection<Ecran> ecrans = null;</span>
+                                <span></span>
+                                <span>  @Before</span>
+                                <span>  public void init() {</span>
+                                <span>    ecrans = ContexteTest.creerEcrans();</span>
+                                <span>  }</span>
+                                <span></span>
+                                <span>  @Test</span>
+                                <span>  public void quand_j_ouvre_un_ecran_je_clique_partout_et_rien_ne_bug() {</span>
+                                <span>    UtilitaireDeClicPartout utilitaireDeClic = new UtilitaireDeClicPartout();</span>
+                                <span>    try {</span>
+                                <span>      utilitaireDeClic.clicsPartout(ecrans);</span>
+                                <span>    } catch (Exception ex) {</span>
+                                <span>      fail("Bug en approche !!");</span>
+                                <span>    }</span>
+                                <span>  }</span>
+                                <span>}</span>
+                            </pre>
+                        </li>
+                    </ul>
+
+                    <div class="alert alert-info text-italic">
+                        <b>5 min plus tard </b> : l’expert test fonctionnel demande une correction en urgence sur une branche de maintenance (bugfix) sur la fonctionnalité de test aléatoire qui ne lui semble pas vraiment aléatoire.
+                        Une fois le bug fixé, il faut retourner sur la fonctionnalité pour la terminer car le chef de projet vient d’arriver dans le bureau avec son café et met la pression.
+                    </div>
+                </li>
+                <li>
+                    Stashez toutes les modifications avec un message <b>"Cou, roucoucou, roucoucou, stash stash"</b>
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r3" aria-expanded="false" aria-controls="r3">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r3">
+                        <pre class="panel-response">
+                            <span>git stash -m "Cou, roucoucou, roucoucou, stash stash"</span>
+                            <span><b class="text-uppercase">ou</b> git stash push -m "Cou, roucoucou, roucoucou, stash stash" <i>(version longue de git stash)</i></span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    Regardez l’état du dépôt et l’état de la liste des stash :
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r4" aria-expanded="false" aria-controls="r4">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r4">
+                        <pre class="panel-response">
+                            <span>git status</span>
+                            <span>git stash list</span>
+                        </pre>
+                    </div>
+                    <ul>
+                        <li>L’ensemble du contenu est-il bien stashé ?</li>
+                        <li>Le message du stash est-il propre ?</li>
+                    </ul>
+
+                    <span class="label label-warning">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        Ne passez pas à la suite tant que vous n’avez pas un stash unique avec l’ensemble du contenu et un message <i>"Cou, roucoucou, roucoucou, stash stash"</i>
+                    </span>
+                    <br/><br/>
+
+                    Pour revenir en arrière sur l’étape §6 :
+                    <pre>
+                        <span>git stash pop</span>
+                    </pre>
+                </li>
+                <li>
+                    Consultez le contenu du stash (En visualisant les lignes de code Java modifiées)
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r6" aria-expanded="false" aria-controls="r6">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r6">
+                        <pre class="panel-response">
+                            <span>git stash show -p stash@{0} ⇒ avec l’option "-p"</span>
+                            <span>git diff stash@{0}</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    Remettre le contenu du stash dans le staging <b>tout en conservant le stash dans la liste</b>
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r7" aria-expanded="false" aria-controls="r7">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r7">
+                        <pre class="panel-response">
+                            <span>git stash apply</span>
+                            <span><b class="text-uppercase">ou</b> git stash apply stash@{0}</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    Créer 2 nouveaux stashs (avec une partie des modifications dans chaque stash)
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r8" aria-expanded="false" aria-controls="r8">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <ul>
+                        <li>Un premier avec la modification dans <mark>Ecran</mark> nommé "modification Ecran"</li>
+                        <li>Et un deuxième avec <mark>UtilitaireDeClicPartout</mark> et <mark>UtilitaireDeClicPartoutTest</mark> nommé "ajout utilitaire de clic partout"</li>
+                    </ul>
+                    <div class="collapse multi-collapse" id="r8">
+                        <pre class="panel-response">
+                            <span>git stash push -m "modification Ecran" -- &lt;pathFichierEcran&gt;</span>
+                            <span>git stash push -m "ajout utilitaire de clic partout" -- &lt;pathUtilitaireDeClicPartout&gt; &lt;pathUtilitaireDeClicPartoutTest&gt;</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    Vérifiez l’état de la liste des stash ; il en contient normalement 3
+                    <pre>
+                        <span>stash@{0}: ajout utilitaire de clic partout</span>
+                        <span>stash@{1}: modification Ecran</span>
+                        <span>stash@{2}: mon premier stash</span>
+                    </pre>
+                </li>
+                <li>
+                    Dépiler le contenu du stash "modification Ecran" dans le répertoire de travail
+                    <pre>
+                        <span>git stash pop stash@{1}</span>
+                    </pre>
+                </li>
+                <li>
+                    Supprimez le stash nommé "mon premier stash"
+                    <pre>
+                        <span>git stash drop stash@{1}</span>
+                    </pre>
+                </li>
+                <li>
+                    Oooops !! je ne voulais pas tout perdre. Je souhaite récupérer le contenu du stash "mon premier stash" et le mettre dans un stash nommé "oops"
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r9" aria-expanded="false" aria-controls="r9">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <br/>
+                    <span class="label label-info">⇒ le hash de commit est indiqué en résultat de la commande précédente</span>
+                    <div class="collapse multi-collapse" id="r9">
+                        La commande précédente (git stash drop stash@{1}) a affiché un numéro de commit en résultat ; il faut l’utiliser en entrée dans la commande suivante
+                        <pre class="panel-response">
+                            <span>git stash store -m "oops" &lt;hash du commit supprimé&gt;</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    Créez une branche "feature-clic-partout" à partir du stash nommé "oops" et commiter le code avec le message "ajout de l'utilitaire clic partout"
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r10" aria-expanded="false" aria-controls="r10">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r10">
+                        <pre class="panel-response">
+                            <span>git stash branch feat-clic-partout stash@{0}</span>
+                            <span>git commit -a -m "ajout de l’utilitaire clic partout"</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    Nettoyez la liste des stash
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r11" aria-expanded="false" aria-controls="r11">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r11">
+                        <pre class="panel-response">
+                            <span>git stash clear</span>
+                        </pre>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center">
+                <a href="exo2.html" class="btn btn-lg btn-primary">&gt;&gt; Exercice suivant</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer">
+    &copy; ITESOFT 2018 - Created by <a href="https://github.com/guitaro" target="_blank">Léventé NAGY (LNA)</a>.
+</footer>
+
+<!-- Javascripts -->
+<script src="scripts/js/jquery-3.3.1.min.js"></script>
+<script src="scripts/js/bootstrap.min.js"></script>
+</body>
+</html>
+
