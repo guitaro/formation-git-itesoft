@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Annexes - Formation GIT</title>
+    <title>Exercice 3 - Formation GIT</title>
     <!-- CSS -->
     <link rel="stylesheet" href="scripts/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="scripts/css/bootstrap-theme.css"/>
@@ -15,6 +15,7 @@
     <![endif]-->
 </head>
 <body>
+<header>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -24,9 +25,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
-                    <img src="images/itesoft_logo_white.png"/>
-                </a>
+                <span class="navbar-brand">
+                        <img class="w-20" src="images/itesoft_logo_white.png"/>
+                    </span>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -34,12 +35,11 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Excercices <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="exo1.html">Excerice 1</a></li>
-                            <li><a href="exo2.html">Excerice 2</a></li>
-                            <li><a href="exo3.html">Excerice 3</a></li>
-                            <li><a href="exo4.html">Excerice 4</a></li>
-                            <li><a href="exo5.html">Excerice 5</a></li>
-                            <li><a href="exo6.html">Excerice 6</a></li>
+                            <li><a href="exo1.html">Excerice 1 (<span class="exercice-title">stash</span>)</a></li>
+                            <li><a href="exo2.html">Excerice 2 (<span class="exercice-title">worktree</span>)</a></li>
+                            <li><a href="exo3.html">Excerice 3 (<span class="exercice-title">rebase</span>)</a></li>
+                            <li><a href="exo4.html">Excerice 4 (<span class="exercice-title">reflog</span>)</a></li>
+                            <li><a href="exo5.html">Excerice 5 (<span class="exercice-title">bisect</span>)</a></li>
                         </ul>
                     </li>
                     <li><a class="nav-link" style="margin-left: 1rem" href="annexes.html">Annexes</a></li>
@@ -47,45 +47,377 @@
             </div><!-- /.navbar-collapse -->
         </div>
     </nav>
+</header>
 
-    <div class="main">
-        <div class="page-header">
-            <h1 class="exercice-title">git stash</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 class="exercice-title">git rebase <small><a href="https://git-scm.com/docs/git-rebase" target="_blank">Documentation</a></small></h1>
+            </div>
         </div>
-        <div class="alert alert-info font-italic">
-            <b>Lundi matin 7h30  (Oui oui, chez Itesoft on commence tôt !)</b>
-
-            Autour d’un café / croissant, le business analyst arrive et demande une nouvelle fonctionnalité de clic partout sur tous les champs cliquables d’un écran. Cette fonctionnalité doit-être implémentée d’ici 10 min, GO!!
-            <br/><br/>
-            Cela implique :
-            <ul>
-                <li>Nouvelle API <i>Ecran#clicAleatoire()</i></li>
-                <li>Nouvel utilitaire : UtilitaireDeClicPartout</li>
-                <li>Et création de la classe de TU associé</li>
-            </ul>
-        </div>
-        <ol>
-            <li>
-                <p>Récupérez le dépôt suivant via le terminal (git bash sous windows) : https://github.com/efluid/jeTestDoncJeSuis-hol (Ou via la clé USB).</p>
-                <br/>
-                <button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Voir la réponse</button>
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>Solution : </strong> git clone https://github.com/efluid/jeTestDoncJeSuis-hol
-                </div>
-
-            </li>
-        </ol>
     </div>
-
-    <footer>
-        <div class="inner">
-            <p>Created by <a href="https://github.com/guitaro" target="_blank">Léventé NAGY (LNA)</a>.</p>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-info text-italic">
+                <b>Mardi après-midi :</b><br/>
+                Le Business Analyst souhaite, pour une raison inconnue, traduire les messages de log en anglais (oui oui, les messages de log …).
+            </div>
         </div>
-    </footer>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <ol type="1">
+                <li>
+                    <b>Le rebase simple :</b>
+                    <ol type="a">
+                        <li>
+                            Positionnez-vous sur <mark>master</mark> proprement :
+                            <pre>
+                                <span>git reset --hard</span>
+                                <span>git clean -fd</span>
+                                <span>git checkout master</span>
+                            </pre>
+                        </li>
+                        <li>
+                            Récupérez localement la branch <mark>rebase</mark> qui doit suivre la branche distante <mark>rebase</mark>
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r1" aria-expanded="false" aria-controls="r1">
+                                <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                            </button>
+                            <div class="collapse multi-collapse" id="r1">
+                                <pre class="panel-response">
+                                    <span>git checkout rebase</span>
+                                </pre>
+                            </div>
+                        </li>
+                        <li>
+                            Créez une branche <mark>exercice_3a</mark> à partir de la branche <mark>master</mark> et placez-vous dessus.
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r2" aria-expanded="false" aria-controls="r2">
+                                <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                            </button>
+                            <div class="collapse multi-collapse" id="r2">
+                                <pre class="panel-response">
+                                    <span>git checkout -b exercice_3a master</span>
+                                </pre>
+                            </div>
+                        </li>
+                        <li>Traduisez le contenu des messages de log de <mark>UtilitaireDeClicAleatoire#clicsAleatoires</mark></li>
+                        <li>
+                            Commitez
+                            <div class="alert alert-info text-italic">
+                                Le Business Analyst souhaite que cette feature englobe les modifications faites par une équipe off-shore sur la branche <mark>rebase</mark>.
+                            </div>
+                        </li>
+                        <li>
+                            Effectuez un rebase avec la branche <mark>rebase</mark>
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r3" aria-expanded="false" aria-controls="r3">
+                                <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                            </button>
+                            <div class="collapse multi-collapse" id="r3">
+                                <pre class="panel-response">
+                                    <span>git rebase rebase</span>
+                                </pre>
+                            </div>
+                        </li>
+                        <li>
+                            Que se passe-t-il ?
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r4" aria-expanded="false" aria-controls="r4">
+                                <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                            </button>
+                            <div class="collapse multi-collapse" id="r4">
+                                <pre class="panel-response">
+                                    <span>on a un conflit avec un commit de la branche <mark>rebase</mark></span>
+                                </pre>
+                            </div>
+                        </li>
+                        <li>
+                            Il va falloir résoudre le conflit avec classe, c’est à dire dans un outil fait pour ça car si on ouvre le fichier ça donne quelque chose comme ça :
+                            <pre>
+                                <span>package js.jetestdoncjesuis;</span>
+                                <span></span>
+                                <span>import java.util.Collection;</span>
+                                <span></span>
+                                <span>public class UtilitaireDeClicAleatoire {</span>
+                                <span></span>
+                                <span>  public void clicsAleatoires(Collection&lt;Ecran&gt; ecrans) {</span>
+                                <span>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+                                <span>        System.out.println("\n\nDémarrage des clicks aléatoires :");</span>
+                                <span>=======</span>
+                                <span>        System.out.println("\n\nStarting random clicks :");</span>
+                                <span>&gt;&gt;&gt;&gt;&gt;&gt;&gt; [feat] traduction en anglais des messages de log.</span>
+                                <span>        for (Ecran ecran : ecrans) {</span>
+                                <span>          ecran.clicAleatoire();</span>
+                                <span>        }</span>
+                                <span>        System.out.println("Random clicks done\n\n");</span>
+                                <span>  }</span>
+                                <span>}</span>
+                            </pre>
+                            <br/>
+                            Vous pouvez :
+                            <ul>
+                                <li>Utiliser l'outil de diff fournit par IntelliJ</li>
+                                <li>
+                                    Prendre l'outil de votre choix (WinMerge, Beyond compare, kdiff3, meld, TortoiseMerge, ...)<br/>
+                                    Pour cette option, vous devez configurer Git pour utiliser votre outils de votre choix dans votre <mark>.gitconfig</mark>
+                                    <pre>
+                                        <span>[merge]</span>
+                                        <span></span>
+                                        <span>tool = bc3</span>
+                                        <span></span>
+                                        <span>[mergetool "bc3"]</span>
+                                        <span></span>
+                                        <span>path = C:/Program Files/beyondcompare/bcomp.exe</span>
+                                    </pre>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Résolvez le conflit (avec classe)
+                            <pre>
+                                <span>git mergetool</span>
+                                <span>git rebase --continue</span>
+                            </pre>
+                            <br/>
+                            <br/>
+                            <span class="label label-success">Bonus</span> Des fichiers ont été créés, lesquels ? Que contiennent-ils ?
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r5" aria-expanded="false" aria-controls="r5">
+                                <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                            </button>
+                            <div class="collapse multi-collapse" id="r5">
+                                <pre class="panel-response">
+                                    <span>Des fichiers .orig. Ils contiennent le contenu du fichier avant la résolution de conflit.</span>
+                                </pre>
+                            </div>
+                            <br/>
+                            <span class="label label-info">conseil</span> Ok c’est cool mais comment on fait pour que git ne les génère pas parce qu’en fait je les supprime tout le temps :
+                            <pre>
+                                <span>git config --global mergetool.keepBackup false</span>
+                            </pre>
+                            <span class="label label-success">Bonus</span> Lors d’un rebase, si jamais vous vous êtes mis les pieds dans le tapis, il y a une commande qui permet de revenir dans l’état avant d'avoir débuté le rebase. Quelle est-elle ?
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r6" aria-expanded="false" aria-controls="r6">
+                                <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                            </button>
+                            <div class="collapse multi-collapse" id="r6">
+                                <pre class="panel-response">
+                                    <span>git rebase --abort</span>
+                                </pre>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="label label-info">conseil</span> Vous êtes fatigué et vous supprimez votre branche <mark>exercice_3a</mark>. Zut, il faut tout recommencer, même la résolution du conflit … sauf si git se souvient de votre résolution et l’applique tout seul : nous allons donc activer le Reuse Recorded Resolution.
+                            <pre>
+                                <span>git config --global rerere.enabled true</span>
+                            </pre>
+                            <ul>
+                                <li>Si vous avez le temps, faites le test !</li>
+                                <li>Un peu plus de <a href="https://delicious-insights.com/fr/articles/git-rerere/" target="_blank">documentation ici</a></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    <b>Et maintenant le rebase intéractif :</b>
+                    <br/>
+                    <br/>
+                    Vous devez développer 2 features :
+                    <ul>
+                        <li>Calcul du temps des tests effectués</li>
+                        <li>Génération des données au format texte des temps des tests (pour être consommer par un grafana ou équivalent)</li>
+                    </ul>
+                    <br/>
+                    <br/>
+                    Lancez le script magique <mark>exercice_31.sh</mark> qui va vous créer une branche locale <mark>exercice_rebase_interactif</mark> et qui va cherry-picker les bons commits à partir de la branche <mark>rebase_interactif</mark>
+                    Ils sont aux nombres de 8 : 4 commits par feature
+                    <ul>
+                        <li>2 pour les implémentations</li>
+                        <li>2 pour les tests</li>
+                    </ul>
+                    <div class="alert alert-info text-italic">
+                        <p>Nous sommes désormais le soir 18h00 et y’a un tournoi de babyfoot dans votre bar préféré du coup vous partez sans merger votre travail sur master, il fera jour demain.</p>
+                        <br/>
+                        <p>Nous sommes maintenant mercredi matin, 9h00 (bah oui on a bu des bières aussi en plus de jouer au baby) et on rallume le PC. On s'apprête à pousser et tout d’un coup le CTO débarque dans l’open space :
+                        <br/>
+                        “Et les gars, dans 15 minutes je check la master pour voir à qui je donne les primes sur objectifs alors s’il vous reste un truc à pousser vous avez 15 minutes”.</p>
+                        <br/>
+                        <p>Et là, vous vous rappelez les règles de qualité de dév. qu’il y a sur le Wiki interne. Dont deux :
+                        <ul>
+                            <li>Découper au maximum ses commits</li>
+                            <li>Effectuer les features en TDD</li>
+                        </ul>
+                        <br/>
+                        <p>Et là, c’est le drame : sur nos 2 dernières features, on a fait le dev et ensuite on a fait les tests. Alors certes la première règle est respectée (peut-être même un peu trop) mais pas la deuxième. Et le CTO, c’est un robot : bye bye la prime. Bon on a 15 minutes comment je fais pour avoir ma prime → on envoie le rebase interactif (git rebase -i) pour remettre les commits au propre et remettre ceux de tests avant ceux des implémentations, et on gagne notre prime.</p>
+                    </div>
+                    <span class="label label-info">conseil</span> Si vous n’aimez pas vi, vous pouvez configurer un éditeur de texte pour réaliser les modifications lorsque git le demande (rebase interactif, message de commit, etc.) ; dans votre gitconfig
+                    <pre>
+                        <span>[core]</span>
+                        <span>editor = 'D:/Program Files/Sublime Text 2.0.2 x64/sublime_text.exe' --wait</span>
+                    </pre>
 
-    <!-- Javascripts -->
-    <script src="scripts/js/jquery-3.3.1.min.js"></script>
-    <script src="scripts/js/bootstrap.min.js"></script>
+                    <ol type="a">
+                        <li>
+                            Commencez par regrouper vos commits par feature via le rebase intéractif :<br/>
+                            Faites en sorte de n’avoir plus que 4 commits (1 d’implémentation, 1 de tests,1 d’implémentation, 1 de tests)
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r7" aria-expanded="false" aria-controls="r7">
+                                <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                            </button>
+                            <div class="collapse multi-collapse" id="r7">
+                                <pre class="panel-response">
+                                    <span>git rebase -i HEAD~8</span>
+                                </pre>
+                            </div>
+                        </li>
+                        <li>
+                            Vous arrivez sur un écran comme ci-dessous
+                            <pre>
+                                <span>pick 04f192ac premier commit pour calcul (interfaces).</span>
+                                <span>pick a55627ee implémentation d'un calculateur via interpolation quantique.</span>
+                                <span>pick 65aada58 test unitaire pour CalculateurDeTempsDexecutionViaInterpolationQuantiqueService.</span>
+                                <span>pick aa95588b fix TU CalculateurDeTempsDexecutionViaInterpolationQuantiqueService.</span>
+                                <span>pick 665a5307 dépendance Jackson + interface service d'export.</span>
+                                <span>pick d7d6cf05 service d'export à fichier plat.</span>
+                                <span>pick e8b33f68 service d'export sous forme de fichier.</span>
+                                <span>pick 9b50792b TU de ServiceDExportTempsExecutionPlainTextTest.</span>
+                                <span></span>
+                                <span># Rebase 3d30c6db..9b50792b onto 3d30c6db (8 commands)</span>
+                                <span>#</span>
+                                <span># Commands:</span>
+                                <span># p, pick = use commit</span>
+                                <span># r, reword = use commit, but edit the commit message</span>
+                                <span># e, edit = use commit, but stop for amending</span>
+                                <span># s, squash = use commit, but meld into previous commit</span>
+                                <span># f, fixup = like "squash", but discard this commit's log message</span>
+                                <span># x, exec = run command (the rest of the line) using shell</span>
+                                <span># d, drop = remove commit</span>
+                                <span>#</span>
+                                <span># These lines can be re-ordered; they are executed from top to bottom.</span>
+                                <span>#</span>
+                                <span># If you remove a line here THAT COMMIT WILL BE LOST.</span>
+                                <span>#</span>
+                                <span># However, if you remove everything, the rebase will be aborted.</span>
+                                <span>#</span>
+                                <span># Note that empty commits are commented out</span>
+                            </pre>
+                        </li>
+                        <li>
+                            Ici, le but est de regrouper les commits : quelle commande utiliser ? Sachant que la commande mise devant l’id de commit s’applique sur le commit du dessus
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r8" aria-expanded="false" aria-controls="r8">
+                                <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                            </button>
+                            <div class="collapse multi-collapse" id="r8">
+                                <pre class="panel-response">
+                                    <span>squash</span>
+                                </pre>
+                            </div>
+                            <br/>
+                            <br/>
+                            <b>Rappel :</b> Faites en sorte de n’avoir plus que 4 commits (1 d’implémentation, 1 de tests,1 d’implémentation, 1 de tests)
+                            <br/>
+                            <b>Soyez cool avec votre communauté :</b> renommez proprement les nouveaux commits fusionnés :)
+                            <br/>
+                            Résultat à obtenir à ce stade :
+                            <br/>
+                            <pre>
+                                <span>$ git log -5</span>
+                                <span>commit 85dfb369f2678940f8fbe4564fea254e84e12509 (HEAD -> rebase_interactif)</span>
+                                <span>Author: Jerome Tamborini &lt;j-tamborini@efluid.fr&gt;</span>
+                                <span>Date:   Mon Apr 2 11:08:35 2018 +0200</span>
+                                <span></span>
+                                <span>        TU de ServiceDExportTempsExecutionPlainTextTest.</span>
+                                <span></span>
+                                <span>commit f526315a111b4e128f6a136bc302303937fd1372</span>
+                                <span>Author: Jerome Tamborini &lt;j-tamborini@efluid.fr&gt;</span>
+                                <span>Date:   Wed Mar 28 11:25:18 2018 +0200</span>
+                                <span></span>
+                                <span>        [feat] service d'export sous forme de fichier plat.</span>
+                                <span></span>
+                                <span>commit 2dce2556ea2951db5351de2083967a276d42c08d</span>
+                                <span>Author: Jerome Tamborini &lt;j-tamborini@efluid.fr&gt;</span>
+                                <span>Date:   Tue Mar 27 13:16:55 2018 +0200</span>
+                                <span></span>
+                                <span>        [test] TU du service de calcul de temps.</span>
+                                <span></span>
+                                <span>commit f4f7a446d96c717dc97adb8da57de2b6ef03b8b4</span>
+                                <span>Author: Jerome Tamborini &lt;j-tamborini@efluid.fr&gt;</span>
+                                <span>Date:   Mon Mar 26 17:10:06 2018 +0200</span>
+                                <span></span>
+                                <span>        [feat] Implémentation des beans et des services pour le calcul de temps.</span>
+                                <span></span>
+                                <span>commit 3d30c6db3b9f450bde23a589ca2feea9f938e567</span>
+                                <span>Author: DMYTRYK Alexis &lt;a-dmytryk@efluid.fr&gt;</span>
+                                <span>Date:   Sun Mar 25 22:05:28 2018 +0200</span>
+                            </pre>
+                        </li>
+                        <li>
+                            Amendez le dernier commit avec un message propre
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r9" aria-expanded="false" aria-controls="r9">
+                                <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                            </button>
+                            <div class="collapse multi-collapse" id="r9">
+                                <pre class="panel-response">
+                                    <span>git commit --amend</span>
+                                </pre>
+                            </div>
+                        </li>
+                        <li>
+                            Inversez le sens des commits lors d’un second rebase interactif <i>(Parce que le but c’est quand même de réussir à avoir la prime :))</i><br/>
+                            Résultat à obtenir à ce stade :
+                            <pre>
+                                <span>$ git log -5</span>
+                                <span>commit 2c0911989f5b3f2a1bae69b64043bca8736c376a (HEAD -> rebase_interactif)</span>
+                                <span>Author: Jerome Tamborini &lt;j-tamborini@efluid.fr&gt;</span>
+                                <span>Date:   Wed Mar 28 11:25:18 2018 +0200</span>
+                                <span></span>
+                                <span>        [feat] service d'export sous forme de fichier plat.</span>
+                                <span></span>
+                                <span>commit bf4fe2ad386e933e4a123bbaeaccce0acec299e5</span>
+                                <span>Author: Jerome Tamborini &lt;j-tamborini@efluid.fr&gt;</span>
+                                <span>Date:   Mon Apr 2 11:08:35 2018 +0200</span>
+                                <span></span>
+                                <span>        [test] TDD->TU de ServiceDExportTempsExecutionPlainTextTest.</span>
+                                <span></span>
+                                <span>commit 587be14cf8f37451b4b18986bfb1add9894af0cd</span>
+                                <span>Author: Jerome Tamborini &lt;j-tamborini@efluid.fr&gt;</span>
+                                <span>Date:   Mon Mar 26 17:10:06 2018 +0200</span>
+                                <span></span>
+                                <span>        [feat] Implémentation des beans et des services pour le calcul de temps.</span>
+                                <span></span>
+                                <span>commit 8af60264e2078c193aa997e8e6ef5a17a8d350ec</span>
+                                <span>Author: Jerome Tamborini &lt;j-tamborini@efluid.fr&gt;</span>
+                                <span>Date:   Tue Mar 27 13:16:55 2018 +0200</span>
+                                <span></span>
+                                <span>        [test] TDD->TU du service de calcul de temps.</span>
+                                <span></span>
+                                <span>commit 3d30c6db3b9f450bde23a589ca2feea9f938e567</span>
+                            </pre>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-info text-italic">
+                Et voilà la prime est pour nous :) !
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center">
+                <a href="exo4.html" class="btn btn-lg btn-primary">&gt;&gt; Exercice suivant</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer">
+    &copy; ITESOFT 2018 - Created by <a href="https://github.com/guitaro" target="_blank">Léventé NAGY (LNA)</a>.
+</footer>
+
+<!-- Javascripts -->
+<script src="scripts/js/jquery-3.3.1.min.js"></script>
+<script src="scripts/js/bootstrap.min.js"></script>
 </body>
 </html>
+

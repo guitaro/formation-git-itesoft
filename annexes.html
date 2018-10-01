@@ -4,170 +4,236 @@
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <!-- CSS -->
     <link rel="stylesheet" href="scripts/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="scripts/css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="scripts/css/styles.css"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-auto">
-        <div class="inner">
-            <img class="navbar-brand w-25" src="images/itesoft_logo_white.png"/>
-            <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link" href="index.html">Accueil</a>
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Excercices
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="exo1.html">Excerice 1</a>
-                    <a class="dropdown-item" href="exo2.html">Excerice 2</a>
-                    <a class="dropdown-item" href="exo3.html">Excerice 3</a>
-                    <a class="dropdown-item" href="exo4.html">Excerice 4</a>
-                    <a class="dropdown-item" href="exo5.html">Excerice 5</a>
-                    <a class="dropdown-item" href="exo6.html">Excerice 6</a>
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand">
+                        <img class="w-20" src="images/itesoft_logo_white.png"/>
+                    </span>
                 </div>
-                <a class="nav-link" style="margin-left: 1rem" href="annexes.html">Annexes</a>
-            </nav>
-        </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a class="nav-link" href="index.html">Accueil</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Excercices <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="exo1.html">Excerice 1 (<span class="exercice-title">stash</span>)</a></li>
+                                <li><a href="exo2.html">Excerice 2 (<span class="exercice-title">worktree</span>)</a></li>
+                                <li><a href="exo3.html">Excerice 3 (<span class="exercice-title">rebase</span>)</a></li>
+                                <li><a href="exo4.html">Excerice 4 (<span class="exercice-title">reflog</span>)</a></li>
+                                <li><a href="exo5.html">Excerice 5 (<span class="exercice-title">bisect</span>)</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="nav-link" style="margin-left: 1rem" href="annexes.html">Annexes</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div>
+        </nav>
     </header>
 
-    <main role="main" class="inner cover">
-        <h1 class="cover-heading">Trucs et astuces</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#conf">Configuration</a></li>
-                <li class="breadcrumb-item"><a href="#custo">Personnalisation</a></li>
-                <li class="breadcrumb-item"><a href="#tips">Astuces</a></li>
-            </ol>
-        </nav>
-        <div class="card">
-            <h5 class="card-header"><a name="conf">Configuration</a></h5>
-            <div class="card-body">
-                <h4 class="card-title">Afficher sa configuration</h4>
-                <pre class="card-text">
-                    <span>$ git config --l</span>
-                </pre>
-                <h4 class="card-title">Initier ou changer son email et nom</h4>
-                <pre class="card-text">
-                    <span>$ git config --global user.email "moi@itesoft.com"</span>
-                    <span>$ git config --global user.name "ABC" &lt;-- trigramme</span>
-                </pre>
-                <h4 class="card-title">Ignorer des fichiers</h4>
-                <p>Il apparaît souvent qu’un type de fichiers présent dans la copie de travail ne doit pas être ajouté automatiquement ou même ne doit pas apparaître comme fichier potentiel pour le suivi de version. Ce sont par exemple des fichiers générés automatiquement tels que les fichiers de journaux ou de sauvegardes produits par l’outil que vous utilisez. Dans un tel cas, on peut énumérer les patterns de noms de fichiers à ignorer dans un fichier .gitignore.
-                Renseigner un fichier .gitignore avant de commencer à travailler est généralement une bonne idée qui évitera de valider par inadvertance des fichiers qui ne doivent pas apparaître dans le dépôt Git.
-                    Les règles de construction des patrons à placer dans le fichier .gitignore sont les suivantes :</p>
-                <ul>
-                    <li>les lignes vides ou commençant par # sont ignorées ;</li>
-                    <li>les patrons standards de fichiers sont utilisables ;</li>
-                    <li>si le patron se termine par une barre oblique (/), il indique un répertoire ;</li>
-                    <li>un patron commençant par un point d’exclamation (!) indique des fichiers à inclure malgré les autres règles.</li>
-                </ul>
-                Voici ci-dessous un exemple de fichier .gitignore :
-                <pre class="card-text">
-                    <span># pas de fichier .class</span>
-                    <span>*.class</span>
-                    <span></span>
-                    <span># mais suivre lib.a malgré la règle précédente</span>
-                    <span>!Main.class</span>
-                    <span></span>
-                    <span># ignorer uniquement le fichier README.md à la racine du projet</span>
-                    <span>/README.md</span>
-                    <span></span>
-                    <span># ignorer tous les fichiers dans le répertoire target</span>
-                    <span>target/</span>
-                    <span></span>
-                    <span># ignorer doc/fr.txt et doc/en.txt, mais pas doc/server/fr.txt</span>
-                    <span>doc/*.txt</span>
-                    <span></span>
-                    <span># ignorer tous les fichiers .txt sous le répertoire test/</span>
-                    <span>test/**/*.txt</span>
-                </pre>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header text-center">
+                    <img class="w-20" src="images/Git-Icon-1788C.png" alt=""/>
+                    <h1 class="cover-heading">Trucs et astuces</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12" id="breadcrumb">
+                <ol class="breadcrumb">
+                    <li><a href="#conf">Configuration</a></li>
+                    <li><a href="#custo">Personnalisation</a></li>
+                    <li><a href="#tips">Astuces</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" id="conf">Configuration</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h4>Afficher sa configuration</h4>
+                        <pre>
+                            <span>$ git config --l</span>
+                        </pre>
+                        <h4>Initier ou changer son email et nom</h4>
+                        <pre>
+                            <span>$ git config --global user.email "moi@itesoft.com"</span>
+                            <span>$ git config --global user.name "ABC" &lt;-- trigramme</span>
+                        </pre>
+                        <h4>Ignorer des fichiers</h4>
+                        <p>Il apparaît souvent qu’un type de fichiers présent dans la copie de travail ne doit pas être ajouté automatiquement ou même ne doit pas apparaître comme fichier potentiel pour le suivi de version. Ce sont par exemple des fichiers générés automatiquement tels que les fichiers de journaux ou de sauvegardes produits par l’outil que vous utilisez. Dans un tel cas, on peut énumérer les patterns de noms de fichiers à ignorer dans un fichier .gitignore.
+                            Renseigner un fichier .gitignore avant de commencer à travailler est généralement une bonne idée qui évitera de valider par inadvertance des fichiers qui ne doivent pas apparaître dans le dépôt Git.
+                            Les règles de construction des patterns à placer dans le fichier .gitignore sont les suivantes :</p>
+                        <ul>
+                            <li>les lignes vides ou commençant par # sont ignorées</li>
+                            <li>les patrons standards de fichiers sont utilisables</li>
+                            <li>si le pattern se termine par une barre oblique (/), il indique un répertoire</li>
+                            <li>un pattern commençant par un point d’exclamation (!) indique des fichiers à inclure malgré les autres règles.</li>
+                        </ul>
+                        Voici ci-dessous un exemple de fichier .gitignore :
+                        <pre>
+                            <span># pas de fichier .class</span>
+                            <span>*.class</span>
+                            <span></span>
+                            <span># mais suivre Main.class malgré la règle précédente</span>
+                            <span>!Main.class</span>
+                            <span></span>
+                            <span># ignorer uniquement le fichier README.md à la racine du projet</span>
+                            <span>/README.md</span>
+                            <span></span>
+                            <span># ignorer tous les fichiers dans le répertoire target</span>
+                            <span>target/</span>
+                            <span></span>
+                            <span># ignorer doc/fr.txt et doc/en.txt, mais pas doc/server/fr.txt</span>
+                            <span>doc/*.txt</span>
+                            <span></span>
+                            <span># ignorer tous les fichiers .txt sous le répertoire test/</span>
+                            <span>test/**/*.txt</span>
+                        </pre>
 
-                Pour ignorer des fichiers dans tous vos projets GIT, vous pouvez définir un .gitignore global à votre environnement :
-                <pre class="card-text">
-                    <span>$ git config --global core.excludesfile C:/.gitignore_global</span>
-                </pre>
+                        Pour ignorer des fichiers dans tous vos projets GIT, vous pouvez définir un .gitignore global à votre environnement :
+                        <pre>
+                            <span>$ git config --global core.excludesfile C:/.gitignore_global</span>
+                        </pre>
+                        <h4>Configurer son outils de merge</h4>
+                        Vous devez configurer Git pour utiliser votre outils de votre choix dans votre <mark>.gitconfig</mark>
+                        <pre>
+                            <span>[merge]</span>
+                            <span></span>
+                            <span>tool = bc3</span>
+                            <span></span>
+                            <span>[mergetool "bc3"]</span>
+                            <span></span>
+                            <span>path = C:/Program Files/beyondcompare/bcomp.exe</span>
+                        </pre>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card">
-            <h5 class="card-header"><a name="custo">Personnalisation</a></h5>
-            <div class="card-body">
-                <h4 class="card-title">Créer des alias</h4>
-                Avec git on peut créer des alias à des commandes personnalisée. Pratique pour gagner quelques caractère lors de la saisie de vos commandes. Par exemple, au lieu d'écrire
-                <pre class="card-text">
-                    <span>$ git status</span>
-                </pre>
-                on peut écrire
-                <pre class="card-text">
-                    <span>$ git st</span>
-                </pre>
-                Voici comment configurer les alias :
-                <pre class="card-text">
-                    <span>$ git config --global alias.st status</span>
-                    <span>$ git config --global alias.co checkout</span>
-                    <span>$ git config --global alias.br branch</span>
-                    <span>$ git config --global alias.ci commit</span>
-                    <span>$ git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"</span>
-                </pre>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" id="custo">Personnalisation</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h4>Créer des alias</h4>
+                        Avec git on peut créer des alias à des commandes personnalisée. Pratique pour gagner quelques caractère lors de la saisie de vos commandes. Par exemple, au lieu d'écrire
+                        <pre>
+                            <span>$ git status</span>
+                        </pre>
+                        on peut écrire
+                        <pre>
+                            <span>$ git st</span>
+                        </pre>
+                        Voici comment configurer les alias :
+                        <pre>
+                            <span>$ git config --global alias.st status</span>
+                            <span>$ git config --global alias.co checkout</span>
+                            <span>$ git config --global alias.br branch</span>
+                            <span>$ git config --global alias.ci commit</span>
+                            <span>$ git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"</span>
+                        </pre>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card">
-            <h5 class="card-header"><a name="tips">Astuces</a></h5>
-            <div class="card-body">
-                <h4 class="card-title">Rebaser sa branche courante sur une autre</h4>
-                <pre class="card-text">
-                    <span>$ git rebase &lt;from_branch_name&gt;</span>
-                </pre>
-                <h4 class="card-title">Synchroniser ses sources avec le serveur en écrasant ses modification locales</h4>
-                <pre class="card-text">
-                    <span>$ git fetch origin && git reset --hard origin/master && git clean -f -d</span>
-                </pre>
-                <h4 class="card-title">Lister tous les fichiers impactés depuis un commit</h4>
-                <pre class="card-text">
-                    <span>$ git ls-tree --name-only -r &lt;commit-hash&gt;</span>
-                </pre>
-                <h4 class="card-title">Lister tous les fichiers en conflit</h4>
-                <pre class="card-text">
-                    <span>$ git diff --name-only --diff-filter=U</span>
-                </pre>
-                <h4 class="card-title">Passer rapidement à la branche précédentement "checkouté"</h4>
-                <pre class="card-text">
-                    <span>$ git checkout -</span>
-                </pre>
-                <h4 class="card-title">Compléter le dernier commit</h4>
-                <pre class="card-text">
-                    <span>$ git commit --amend</span>
-                </pre>
-                <h4 class="card-title">Lister les branches locales</h4>
-                <pre class="card-text">
-                    <span>$ git branch</span>
-                </pre>
-                <h4 class="card-title">Lister les branches distantes</h4>
-                <pre class="card-text">
-                    <span>$ git branch -r</span>
-                </pre>
-                <h4 class="card-title">Lister les branches locales et distantes</h4>
-                <pre class="card-text">
-                    <span>$ git branch -a</span>
-                </pre>
-                <h4 class="card-title">Afficher l'arbre des versions</h4>
-                <pre class="card-text">
-                    <span>$ git log --pretty=oneline --graph --decorate --all</span>
-                </pre>
-                <br/>
-                <p class="text-right">Et plein d'autres astuces ici : <a href="https://github.com/git-tips/tips/blob/master/README.md" target="_blank">git-tips</a>.</p>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" id="tips">Astuces</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h4>Rebaser sa branche courante sur une autre</h4>
+                        <pre>
+                            <span>$ git rebase &lt;from_branch_name&gt;</span>
+                        </pre>
+                        <h4>Synchroniser ses sources avec le serveur en écrasant ses modification locales</h4>
+                        <pre>
+                            <span>$ git fetch origin && git reset --hard origin/master && git clean -f -d</span>
+                        </pre>
+                        <h4>Lister tous les fichiers impactés depuis un commit</h4>
+                        <pre>
+                            <span>$ git ls-tree --name-only -r &lt;commit-hash&gt;</span>
+                        </pre>
+                        <h4>Lister tous les fichiers en conflit</h4>
+                        <pre>
+                            <span>$ git diff --name-only --diff-filter=U</span>
+                        </pre>
+                        <h4>Passer rapidement à la branche précédentement "checkouté"</h4>
+                        <pre>
+                            <span>$ git checkout -</span>
+                        </pre>
+                        <h4>Compléter le dernier commit</h4>
+                        <pre>
+                            <span>$ git commit --amend</span>
+                        </pre>
+                        <h4>Lister les branches locales</h4>
+                        <pre>
+                            <span>$ git branch</span>
+                        </pre>
+                        <h4>Lister les branches distantes</h4>
+                        <pre>
+                            <span>$ git branch -r</span>
+                        </pre>
+                        <h4>Lister les branches locales et distantes</h4>
+                        <pre>
+                            <span>$ git branch -a</span>
+                        </pre>
+                        <h4>Afficher l'arbre des versions</h4>
+                        <pre>
+                            <span>$ git log --pretty=oneline --graph --decorate --all</span>
+                        </pre>
+                        <br/>
+                        <p class="text-right">Et plein d'autres astuces ici : <a href="https://github.com/git-tips/tips/blob/master/README.md" target="_blank">git-tips</a>.</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </main>
-
-    <footer class="mt-auto">
-        <div class="inner">
-            <p>Created by <a href="https://github.com/guitaro" target="_blank">Léventé NAGY (LNA)</a>.</p>
-        </div>
+    </div>
+    <footer class="page-footer">
+        &copy; ITESOFT 2018 - Created by <a href="https://github.com/guitaro" target="_blank">Léventé NAGY (LNA)</a>.
     </footer>
-</div>
 
 <!-- Javascripts -->
 <script src="scripts/js/jquery-3.3.1.min.js"></script>
-<script src="scripts/js/bootstrap.bundle.min.js"></script>
+<script src="scripts/js/bootstrap.min.js"></script>
+<script>
+    $("#breadcrumb ol li a[href^='#']").on('click', function(e) {
+        // prevent default anchor click behavior
+        e.preventDefault();
+
+        // animate
+        $('html, body').animate({
+            scrollTop: $(this.hash).offset().top
+        }, 300, function(){
+
+            // when done, add hash to url
+            // (default click behaviour)
+            window.location.hash = this.hash;
+        });
+    });
+</script>
 </body>
 </html>

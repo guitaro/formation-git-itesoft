@@ -14,6 +14,11 @@ a,
 a:focus,
 a:hover {
     color: #fff;
+    text-decoration: underline;
+}
+
+.btn-primary {
+    text-decoration: none !important;
 }
 
 ol li {
@@ -32,6 +37,31 @@ ol li {
 .panel-response {
     background-color: #dff0d8;
     color: #333;
+}
+
+.panel {
+    background-color: unset;
+    border-color: #888 !important;
+}
+
+.panel-title > a, .panel-title > a:hover, .panel-title > a:focus {
+    text-decoration: none;
+    color: #444;
+    font-size: large;
+}
+
+.breadcrumb a, .breadcrumb a:hover, .breadcrumb a:focus {
+    color: #444;
+}
+
+.breadcrumb li {
+    margin: 0;
+}
+
+.panel-heading {
+    padding : 15px 20px;
+    background: #fb2 none !important;
+    border-color: #888 !important;
 }
 
 .text-italic {
@@ -131,5 +161,6 @@ pre span:before {
     border-right: 1px solid #ddd;
     padding: 0 .5em;
     margin-right: .5em;
-    color: #888
+    color: #888;
+    width: 2em;
 }

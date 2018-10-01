@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Annexes - Formation GIT</title>
+    <title>Exercice 5 - Formation GIT</title>
     <!-- CSS -->
     <link rel="stylesheet" href="scripts/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="scripts/css/bootstrap-theme.css"/>
@@ -15,6 +15,7 @@
     <![endif]-->
 </head>
 <body>
+<header>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -24,9 +25,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
-                    <img src="images/itesoft_logo_white.png"/>
-                </a>
+                <span class="navbar-brand">
+                        <img class="w-20" src="images/itesoft_logo_white.png"/>
+                    </span>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -34,12 +35,11 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Excercices <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="exo1.html">Excerice 1</a></li>
-                            <li><a href="exo2.html">Excerice 2</a></li>
-                            <li><a href="exo3.html">Excerice 3</a></li>
-                            <li><a href="exo4.html">Excerice 4</a></li>
-                            <li><a href="exo5.html">Excerice 5</a></li>
-                            <li><a href="exo6.html">Excerice 6</a></li>
+                            <li><a href="exo1.html">Excerice 1 (<span class="exercice-title">stash</span>)</a></li>
+                            <li><a href="exo2.html">Excerice 2 (<span class="exercice-title">worktree</span>)</a></li>
+                            <li><a href="exo3.html">Excerice 3 (<span class="exercice-title">rebase</span>)</a></li>
+                            <li><a href="exo4.html">Excerice 4 (<span class="exercice-title">reflog</span>)</a></li>
+                            <li><a href="exo5.html">Excerice 5 (<span class="exercice-title">bisect</span>)</a></li>
                         </ul>
                     </li>
                     <li><a class="nav-link" style="margin-left: 1rem" href="annexes.html">Annexes</a></li>
@@ -47,45 +47,120 @@
             </div><!-- /.navbar-collapse -->
         </div>
     </nav>
+</header>
 
-    <div class="main">
-        <div class="page-header">
-            <h1 class="exercice-title">git stash</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 class="exercice-title">git bisect <small><a href="https://git-scm.com/docs/git-bisect" target="_blank">Documentation</a></small></h1>
+            </div>
         </div>
-        <div class="alert alert-info font-italic">
-            <b>Lundi matin 7h30  (Oui oui, chez Itesoft on commence tôt !)</b>
-
-            Autour d’un café / croissant, le business analyst arrive et demande une nouvelle fonctionnalité de clic partout sur tous les champs cliquables d’un écran. Cette fonctionnalité doit-être implémentée d’ici 10 min, GO!!
-            <br/><br/>
-            Cela implique :
-            <ul>
-                <li>Nouvelle API <i>Ecran#clicAleatoire()</i></li>
-                <li>Nouvel utilitaire : UtilitaireDeClicPartout</li>
-                <li>Et création de la classe de TU associé</li>
-            </ul>
-        </div>
-        <ol>
-            <li>
-                <p>Récupérez le dépôt suivant via le terminal (git bash sous windows) : https://github.com/efluid/jeTestDoncJeSuis-hol (Ou via la clé USB).</p>
-                <br/>
-                <button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Voir la réponse</button>
-                <div class="alert alert-warning alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>Solution : </strong> git clone https://github.com/efluid/jeTestDoncJeSuis-hol
-                </div>
-
-            </li>
-        </ol>
     </div>
-
-    <footer>
-        <div class="inner">
-            <p>Created by <a href="https://github.com/guitaro" target="_blank">Léventé NAGY (LNA)</a>.</p>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-info text-italic">
+                <b>Vendredi matin :</b>
+                Le chef de projet débarque en furie car un bug vient d’être détecté en production. Personne ne l'avait vu avant. Ah bon ?
+                Vous devez trouver au plus vite le commit à l’origine de ce bug en utilisant la commande git bisect.
+            </div>
         </div>
-    </footer>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <ol type="1">
+                <li>
+                    Positionnez-vous sur <mark>master</mark> proprement :
+                    <pre>
+                        <span>git reset --hard</span>
+                        <span>git clean -fd</span>
+                        <span>git checkout master</span>
+                    </pre>
+                    ou si vous voulez supprimer le commit de la fin de l’exercice précédent :
+                    <pre>
+                        <span>git reset --hard HEAD^1</span>
+                        <span>git clean -fd</span>
+                        <span>git checkout master</span>
+                    </pre>
+                </li>
+                <li>Se placer sur la branche de production :  <mark>production</mark></li>
+                <li>
+                    Lancez les tests avec maven
+                    <pre>
+                        <span>mvn clean test</span>
+                    </pre>
+                    Quel est le constat ?
+                </li>
+                <li>
+                    Quel est le commit qui pose problème ?<br/>
+                    Lancez un bisect automatique entre le commit courant et le commit 6d140c7c0176c683269dc9d897dbdb1a6b4b7554 car on sait que celui-la fonctionne.
+                    <br/><br/>
+                    Notez le temps global qu’a pris le mode automatique. Sortez du mode bisect
 
-    <!-- Javascripts -->
-    <script src="scripts/js/jquery-3.3.1.min.js"></script>
-    <script src="scripts/js/bootstrap.min.js"></script>
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r1" aria-expanded="false" aria-controls="r1">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r1">
+                        <pre class="panel-response">
+                            <span>git bisect start HEAD 6d140c7c0176c683269dc9d897dbdb1a6b4b7554</span>
+                            <span>git bisect run mvn clean test</span>
+                            <span>git bisect reset</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    <span class="label label-success">bonus</span> Comment, de manière plus visuelle, voir le commit qui a fait planté les tests ?
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r2" aria-expanded="false" aria-controls="r2">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r2">
+                        <pre class="panel-response">
+                            <span>git bisect visualize</span>
+                        </pre>
+                    </div>
+                </li>
+                <li>
+                    Effectuez la même manipulation mais en mode manuel (mode par défault dans la documentation de <mark>git bisect</mark>)
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r3" aria-expanded="false" aria-controls="r3">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r3">
+                        <pre class="panel-response">
+                            <span>git bisect start HEAD 6d140c7c0176c683269dc9d897dbdb1a6b4b7554</span>
+                            <span>//vérifications manuelles</span>
+                            <span>git bisect good</span>
+                            <span>//vérifications manuelles</span>
+                            <span>git bisect good</span>
+                            <span>//vérifications manuelles</span>
+                            <span>git bisect bad</span>
+                            <span>//vérifications manuelles</span>
+                            <span>git bisect good</span>
+                            <span>//vérifications manuelles</span>
+                            <span>git bisect good</span>
+                            <span>//vérifications manuelles</span>
+                            <span>git bisect good</span>
+                        </pre>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center">
+                <a href="index.html" class="btn btn-lg btn-link">Retour a l'accueil</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer">
+    &copy; ITESOFT 2018 - Created by <a href="https://github.com/guitaro" target="_blank">Léventé NAGY (LNA)</a>.
+</footer>
+
+<!-- Javascripts -->
+<script src="scripts/js/jquery-3.3.1.min.js"></script>
+<script src="scripts/js/bootstrap.min.js"></script>
 </body>
 </html>
+

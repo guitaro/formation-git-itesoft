@@ -35,12 +35,11 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Excercices <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="exo1.html">Excerice 1</a></li>
-                            <li><a href="exo2.html">Excerice 2</a></li>
-                            <li><a href="exo3.html">Excerice 3</a></li>
-                            <li><a href="exo4.html">Excerice 4</a></li>
-                            <li><a href="exo5.html">Excerice 5</a></li>
-                            <li><a href="exo6.html">Excerice 6</a></li>
+                            <li><a href="exo1.html">Excerice 1 (<span class="exercice-title">stash</span>)</a></li>
+                            <li><a href="exo2.html">Excerice 2 (<span class="exercice-title">worktree</span>)</a></li>
+                            <li><a href="exo3.html">Excerice 3 (<span class="exercice-title">rebase</span>)</a></li>
+                            <li><a href="exo4.html">Excerice 4 (<span class="exercice-title">reflog</span>)</a></li>
+                            <li><a href="exo5.html">Excerice 5 (<span class="exercice-title">bisect</span>)</a></li>
                         </ul>
                     </li>
                     <li><a class="nav-link" style="margin-left: 1rem" href="annexes.html">Annexes</a></li>
@@ -79,7 +78,7 @@
                     </pre>
                 </li>
                 <li>
-                    Créez un worktree nommé "jeTestDoncJeSuis-hol-bugfix" (Ici, un nouveau "répertoire" va être créé ; positionnez-le à côté de l’actuel : "../jeTestDoncJeSuis-hol-bugfix")
+                    Créez un worktree nommé <mark>jeTestDoncJeSuis-hol-bugfix</mark> (Ici, un nouveau "répertoire" va être créé ; positionnez-le à côté de l’actuel : "../jeTestDoncJeSuis-hol-bugfix")
                     <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r1" aria-expanded="false" aria-controls="r1">
                         <span class="glyphicon glyphicon-eye-open"></span> Réponse
                     </button>
@@ -115,13 +114,13 @@
                     Dans votre IDE : Importez le worktree "nouveau worktree" (jeTestDoncJeSuis-hol-bugfix)
                 </li>
                 <li>
-                    Réalisez la correction (décommentez le code dans <mark>Ecran#clickAleatoire()</mark>) dans le worktree jeTestDoncJeSuis-hol-bugfix
+                    Réalisez la correction (décommentez le code dans <mark>Ecran#clickAleatoire()</mark>) dans le worktree <mark>jeTestDoncJeSuis-hol-bugfix</mark>
                 </li>
                 <li>
                     Vous pouvez ouvrir 2 terminaux de commande (un worktree différent sur chaque fenêtre) et lancer les compilations / tests sur chaque worktree en même temps pour bien vérifier que les deux worktrees sont indépendants
                 </li>
                 <li>
-                    Commitez la correction sur le worktree "jeTestDoncJeSuis-hol-bugfix"
+                    Commitez la correction sur le worktree <mark>jeTestDoncJeSuis-hol-bugfix</mark>
                     <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r3" aria-expanded="false" aria-controls="r3">
                         <span class="glyphicon glyphicon-eye-open"></span> Réponse
                     </button>
@@ -148,44 +147,49 @@
                         <span class="glyphicon glyphicon-eye-open"></span> Réponse
                     </button>
                     <div class="collapse multi-collapse" id="r4">
-                                <pre class="panel-response">
-                                    <span>Oui le commit est visible et Cherry-pick possible.</span>
-                                </pre>
+                        <pre class="panel-response">
+                            <span>Oui le commit est visible et Cherry-pick possible.</span>
+                        </pre>
                     </div>
                 </li>
                 <li>
-            10 (Bonus) Lancez une commande sur les différents worktree en même temps à partir du même terminal (git bash sous windows) ?
-
-            Sous windows : git worktree list --porcelain | awk '/^worktree/ {print "/" $2 "/pom.xml"}' | xargs -I '{}' mvn clean install -f '{}'
+                    <span class="label label-success">Bonus</span> Lancez une commande sur les différents worktree en même temps à partir du même terminal (git bash sous windows) ?
+                    <pre>
+                        <span>git worktree list --porcelain | awk '/^worktree/ {print "/" $2 "/pom.xml"}' | xargs -I '{}' mvn clean install -f '{}'</span>
+                    </pre>
                 </li>
                 <li>
-            11 Le travail est terminé, supprimez le worktree "jeTestDoncJeSuis-hol-bugfix"
-
-            Se placer dans le répertoire “jeTestDoncJeSuis-hol” et lancer les commandes suivantes.
-
-            rm -rf ../jeTestDoncJeSuis-hol-bugfix && git worktree prune
-
-            ou “rm -rf ../jeTestDoncJeSuis-hol-bugfix” puis “git worktree prune”
-
-            git worktree remove (A partir de la version 2.17)
-
-            https://stackoverflow.com/questions/44109234/how-to-delete-a-git-working-tree-branch-when-its-working-directory-has-been-remo/49331132#49331132
+                    Le travail est terminé, supprimez le worktree <mark>jeTestDoncJeSuis-hol-bugfix</mark>.
+                    Se placer dans le répertoire <mark>jeTestDoncJeSuis-hol</mark> et lancer les commandes suivantes.
+                    <pre>
+                        <span>rm -rf ../jeTestDoncJeSuis-hol-bugfix && git worktree prune</span>
+                        <span>git worktree remove <i>(A partir de la version 2.17)</i></span>
+                    </pre>
                 </li>
                 <li>
-            12 Consultez la liste des worktree pour vérifier que le worktree est bien supprimé
-
-            git worktree list
+                    Consultez la liste des worktree pour vérifier que le worktree est bien supprimé
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r5" aria-expanded="false" aria-controls="r5">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r5">
+                        <pre class="panel-response">
+                            <span>git worktree list</span>
+                        </pre>
+                    </div>
                 </li>
                 <li>
-            13 Positionnez vous sur le worktree principal (../jeTestDoncJeSuis-hol) ; est-ce que vous arrivez à retrouver la branche “jeTestDoncJeSuis-hol-bugfix” associé au worktree supprimé à l’étape 2.11 ?
-
-            Oui, elle est bien toujours présente malgré la suppression du worktree.
-
-            Complément d’info : on peut créer un worktree à partir d’une branche existante
+                    Positionnez vous sur le worktree principal (../jeTestDoncJeSuis-hol) ; est-ce que vous arrivez à retrouver la branche “jeTestDoncJeSuis-hol-bugfix” associé au worktree supprimé à l’étape 2.11 ?
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#r6" aria-expanded="false" aria-controls="r6">
+                        <span class="glyphicon glyphicon-eye-open"></span> Réponse
+                    </button>
+                    <div class="collapse multi-collapse" id="r6">
+                        <pre class="panel-response">
+                            <span>Oui, elle est bien toujours présente malgré la suppression du worktree.</span>
+                            <span>Complément d’info : on peut créer un worktree à partir d’une branche existante</span>
+                        </pre>
+                    </div>
                 </li>
-
             </ol>
-
         </div>
     </div>
     <div class="row">
