@@ -71,15 +71,39 @@
                     <h3 class="panel-title" id="conf">Configuration</h3>
                 </div>
                 <div class="panel-body">
+                    <h4>Où trouver sont fichier de configuration .gitconfig global ?</h4>
+                    Windows : <i>C:\Users\&lt;trigramme&gt;\.gitconfig</i><br/>
+                    MacOS : <i>$HOME/.gitconfig</i><br/>
+                    Linux : <i>~/.gitconfig ou ~/.config/git ou /etc/gitconfig</i><br/><br/>
+                    <div class="alert alert-warning">
+                        <h4>Configuration fortement recommandée</h4>
+                        Voici la configuration minimale demandée au sein des équipes R&D Itesoft :
+                        <pre>
+                            <span>// Réalise un rebase lors d'un git pull, au lieu de faire un merge, et "preserve", ce qui evite de perdre les commits de merge</span>
+                            <span>$ git config --global pull.rebase preserve</span>
+                            <span>// Lors d'un rebase, si des commits n'ont pas été pushés, ils sont stashés pour ne pas les perdre</span>
+                            <span>$ git config --global rebase.autostash true</span>
+                        </pre>
+                        Ou directement dans votre .gitconfig :
+                        <pre>
+                            <span>[pull]</span>
+                            <span>rebase = preserve</span>
+                            <span>// Réalise un rebase lors d'un git pull, au lieu de faire un merge, et "preserve", ce qui evite de perdre les commits de merge</span>
+                            <span></span>
+                            <span>[rebase]</span>
+                            <span>autostash = true</span>
+                            <span>// Lors d'un rebase, si des commits n'ont pas été pushés, ils sont stashés pour ne pas les perdre</span>
+                        </pre>
+                        <h4>Initier ou changer son email et nom</h4>
+                        <pre>
+                        <span>$ git config --global user.email "levente.nagy@itesoft.com"</span>
+                        <span>$ git config --global user.name "LNA"</span>
+                    </pre>
+                    </div>
                     <h4>Afficher sa configuration</h4>
                     <pre>
-                            <span>$ git config --l</span>
-                        </pre>
-                    <h4>Initier ou changer son email et nom</h4>
-                    <pre>
-                            <span>$ git config --global user.email "moi@itesoft.com"</span>
-                            <span>$ git config --global user.name "ABC" &lt;-- trigramme</span>
-                        </pre>
+                        <span>$ git config --l</span>
+                    </pre>
                     <h4>Ignorer des fichiers</h4>
                     <p>Il apparaît souvent qu’un type de fichiers présent dans la copie de travail ne doit pas être ajouté automatiquement ou même ne doit pas apparaître comme fichier potentiel pour le suivi de version. Ce sont par exemple des fichiers générés automatiquement tels que les fichiers de journaux ou de sauvegardes produits par l’outil que vous utilisez. Dans un tel cas, on peut énumérer les patterns de noms de fichiers à ignorer dans un fichier .gitignore.
                         Renseigner un fichier .gitignore avant de commencer à travailler est généralement une bonne idée qui évitera de valider par inadvertance des fichiers qui ne doivent pas apparaître dans le dépôt Git.
@@ -119,11 +143,9 @@
                     Vous devez configurer Git pour utiliser votre outils de votre choix dans votre <mark>.gitconfig</mark>
                     <pre>
                             <span>[merge]</span>
-                            <span></span>
                             <span>tool = bc3</span>
                             <span></span>
                             <span>[mergetool "bc3"]</span>
-                            <span></span>
                             <span>path = C:/Program Files/beyondcompare/bcomp.exe</span>
                         </pre>
                 </div>
