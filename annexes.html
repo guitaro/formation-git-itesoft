@@ -79,20 +79,28 @@
                         <h4>Configuration fortement recommandée</h4>
                         Voici la configuration minimale demandée au sein des équipes R&D Itesoft :
                         <pre>
-                            <span>// Réalise un rebase lors d'un git pull, au lieu de faire un merge, et "preserve", ce qui evite de perdre les commits de merge</span>
                             <span>$ git config --global pull.rebase preserve</span>
-                            <span>// Lors d'un rebase, si des commits n'ont pas été pushés, ils sont stashés pour ne pas les perdre</span>
                             <span>$ git config --global rebase.autostash true</span>
+                            <span>$ git config --global branch.autoSetupRebase always</span>
+                            <span>$ git config --global rerere.enabled true</span>
                         </pre>
                         Ou directement dans votre .gitconfig :
                         <pre>
                             <span>[pull]</span>
-                            <span>rebase = preserve</span>
+                            <span>  rebase = preserve</span>
                             <span>// Réalise un rebase lors d'un git pull, au lieu de faire un merge, et "preserve", ce qui evite de perdre les commits de merge</span>
                             <span></span>
                             <span>[rebase]</span>
-                            <span>autostash = true</span>
+                            <span>  autostash = true</span>
                             <span>// Lors d'un rebase, si des commits n'ont pas été pushés, ils sont stashés pour ne pas les perdre</span>
+                            <span></span>
+                            <span>[branch]</span>
+                            <span>  autoSetupRebase = always</span>
+                            <span>// Lors de la création d'une branche, le rebase est toujours utilisé par défaut.</span>
+                            <span></span>
+                            <span>[rerere]</span>
+                            <span>  enabled = true</span>
+                            <span>// <b>Re</b>use <b>Re</b>corded <b>Re</b>solution pour éviter les corrections identiques.</span>
                         </pre>
                         <h4>Initier ou changer son email et nom</h4>
                         <pre>
@@ -250,7 +258,6 @@
         $('html, body').animate({
             scrollTop: $(this.hash).offset().top
         }, 300, function(){
-
             // when done, add hash to url
             // (default click behaviour)
             window.location.hash = this.hash;
