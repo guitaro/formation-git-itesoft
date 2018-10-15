@@ -173,12 +173,12 @@ pre span:before {
     z-index: 100;
     display: none;
     text-decoration: none;
-    color: #ffffff;
+    color: #333;
     background: #fb2 none;
     padding: 10px;
     border-radius: 30px;
 }
 
 .back-to-top i {
-    font-size: 30px;
+    font-size: 15px;
 }
